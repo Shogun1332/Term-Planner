@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Term_Planner.Views.CourseDetailsPage"
+             Title="{Binding CourseName}">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Course"
+                     Clicked="OnEditCourseClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Margin="20">
+        <Label Text="Course Details"
+               FontSize="Title"/>
+        <Grid ColumnDefinitions="*,*"
+              Margin="0,10,0,0">
+            <Label Text="Status"
+                   FontSize="Medium"
+                   Grid.Column="0"/>
+            <Label Text="{Binding CourseStatus}"
+                   FontSize="Medium"
+                   Grid.Column="1"/>
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   FontSize="Medium"
+                   Text="Start Date"/>
+            <Label x:Name="StartDate"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="1"
+                   FontSize="Medium"
+                   Text="{Binding CourseStart}"/>
+            <Label Grid.Column="0"
+                   Grid.Row="2"
+                   FontSize="Medium"
+                   Text="Due Date"/>
+            <Label x:Name="EndDate"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="2"
+                   FontSize="Medium"
+                   Text="{Binding CourseEnd}"/>
+        </Grid>
+        <Label Text="Course Instructor"
+               FontSize="Title"
+               Margin="0,10,0,0"/>
+        <Grid ColumnDefinitions="*,*"
+              Margin="0,10,0,0">
+            <Label Text="Instructor Name"
+                   FontSize="Medium"
+                   Grid.Column="0"
+                   Grid.Row="0"/>
+            <Label Text="{Binding InstructorName}"
+                   FontSize="Medium"
+                   Grid.Column="1"
+                   Grid.Row="0"/>
+            <Label Text="Instructor Email"
+                   FontSize="Medium"
+                   Grid.Column="0"
+                   Grid.Row="1"/>
+            <Label Text="{Binding InstructorEmail}"
+                   FontSize="Medium"
+                   Grid.Column="1"
+                   Grid.Row="1"/>
+            <Label Text="Instructor Phone"
+                   FontSize="Medium"
+                   Grid.Column="0"
+                   Grid.Row="2"/>
+            <Label Text="{Binding InstructorPhone}"
+                   FontSize="Medium"
+                   Grid.Column="1"
+                   Grid.Row="2"/>
+        </Grid>
+        <Label Text="Course Assessments"
+               FontSize="Large"
+               Margin="0,10,0,10"/>
+        <BoxView HeightRequest="1"
+                 Color="LightGray"/>
+        <CollectionView x:Name="courseOwnsAssessmentsCollectionView"
+                        ItemsSource="{Binding CourseOwnsAssessments}"
+                        SelectionMode="Single"
+                        HeightRequest="150">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding AssessmentName}"
+                               FontSize="Medium"/>
+                        <Label Text="{Binding AssessmentType}"/>
+                        <BoxView HeightRequest="1"
+                                 Color="LightGray"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid ColumnDefinitions="*,*">
+            <Button Grid.Column="0"
+                    Text="Add"
+                    BackgroundColor="Green"
+                    Clicked="OnAddAssessmentButtonClicked"/>
+            <Button Grid.Column="1"
+                    Text="View"
+                    BackgroundColor="DarkBlue"
+                    Clicked="OnViewAssessmentButtonClicked"/>
+            <Button Grid.Column="2"
+                    Text="Delete"
+                    BackgroundColor="Red"
+                    Clicked="OnDeleteAssessmentButtonClicked"/>
+        </Grid>
+        <Button Text="Course Notes"
+                Clicked="OnCourseNotesButtonClicked"/>
+    </StackLayout>
+</ContentPage>
