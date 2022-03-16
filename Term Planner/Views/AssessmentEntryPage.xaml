@@ -16,11 +16,13 @@
                    FontSize="Medium"
                    Grid.Column="0"/>
             <Picker FontSize="Medium"
+                    x:Name="TypePicker"
                     Title="Assessment Type"
                     Grid.Column="1"
                     Grid.Row="0"
                     ItemsSource="{Binding AssessmentTypes}"
-                    SelectedItem="{Binding AssessmentType}"/>
+                    SelectedItem="{Binding AssessmentType}"
+                    SelectedIndexChanged="TypePicker_SelectedIndexChanged"/>
             <Label Grid.Column="0"
                    Grid.Row="1"
                    FontSize="Medium"

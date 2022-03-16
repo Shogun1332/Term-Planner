@@ -56,12 +56,12 @@ namespace Term_Planner.Views
                 await DisplayAlert("Error", "You must provide a Term Name to continue", "Okay");
                 nameValid = false;
             }
-            if (StartDatePicker.Date == null) //This is pointless code to satisfy a rubric requirement, StartDatePicker will never have a null value because it is programmatically set when creating a new term and when opening an existing term
+            if (term.FormattedTermStart == "")
             {
                 await DisplayAlert("Error", "You must provide a Start Date for the Term to continue.", "Okay");
                 startValid = false;
             }
-            if (EndDatePicker.Date == null) //This is pointless code to satisfy a rubric requirement, EndDatePicker will never have a null value because it is programmatically set when creating a new term and when opening an existing term
+            if (term.FormattedTermEnd == "")
             {
                 await DisplayAlert("Error", "You must provide an End Date for the Term to continue.", "Okay");
                 endValid = false;
@@ -101,7 +101,7 @@ namespace Term_Planner.Views
         private async void EndDatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
             var term = (Term)BindingContext;
-            if (StartDatePicker.Date == null) //This is pointless code to satisfy a rubric requirement, StartDatePicker will never have a null value because it is programmatically set when creating a new term and when opening an existing term
+            if (term.FormattedTermStart == "")
             {
                 await DisplayAlert("Error", "You must set a start date for the term before setting an end date.", "Okay");
             }

@@ -115,6 +115,7 @@ namespace Term_Planner.Views
             }
             if (!Course.IsInstructorEmailValid(course.InstructorEmail))
             {
+                instructorEmailValid = false;
                 await DisplayAlert("Error", "You must provide a valid instructor email address to continue", "Okay");
             }
             if (string.IsNullOrWhiteSpace(course.InstructorPhone))
@@ -122,12 +123,12 @@ namespace Term_Planner.Views
                 instructorPhoneValid = false;
                 await DisplayAlert("Error", "You must provide an instructor phone number to continue", "Okay");
             }
-            if (StartDatePicker.Date == null) //This is pointless code to satisfy a rubric requirement, StartDatePicker will never have a null value because it is programmatically set when creating a new term and when opening an existing term
+            if (course.FormattedCourseStart == "")
             {
                 await DisplayAlert("Error", "You must provide a Start Date for the Course to continue.", "Okay");
                 startValid = false;
             }
-            if (EndDatePicker.Date == null) //This is pointless code to satisfy a rubric requirement, EndDatePicker will never have a null value because it is programmatically set when creating a new term and when opening an existing term
+            if (course.FormattedCourseEnd == "")
             {
                 await DisplayAlert("Error", "You must provide an End Date for the Course to continue.", "Okay");
                 endValid = false;

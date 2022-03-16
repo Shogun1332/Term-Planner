@@ -80,15 +80,25 @@ namespace Term_Planner.Views
             var assessment = (Assessment)BindingContext;
             bool assessmentValid = true;
             bool assessmentNameValid = true;
+            bool assessmentTypeValid = true;
             if(assessment.CourseID > 0)
             {
                 Course course = await App.Database.GetCourseAsync(assessment.CourseID);
                 List<Assessment> assessmentsOwnedByParent = await App.Database.GetCourseAssessmentsAsync(course);
-                int assessmentValidation = assessmentsOwnedByParent.Where(i => i.AssessmentType == assessment.AssessmentType).Count();
-                if (assessmentValidation >= 1)
+                int existingAssessmentCheck = assessmentsOwnedByParent.Where(i => i.AssessmentID == assessment.AssessmentID).Count();
+                if (existingAssessmentCheck == 0)
                 {
-                    assessmentValid = false;
+                    int assessmentValidation = assessmentsOwnedByParent.Where(i => i.AssessmentType == assessment.AssessmentType).Count();
+                    if (assessmentValidation >= 1)
+                    {
+                        assessmentValid = false;
+                    }
                 }
+            }
+            if (TypePicker.SelectedItem == null)
+            {
+                assessmentTypeValid = false;
+                await DisplayAlert("Error", "You must select an assessment type to continue", "Okay");
             }
             if (string.IsNullOrWhiteSpace(assessment.AssessmentName))
             {
@@ -99,7 +109,7 @@ namespace Term_Planner.Views
             {
                 await DisplayAlert("Error", "A course can only have one Objective Assessment and one Performance Assessment.", "Okay");
             }
-            if (assessmentNameValid && assessmentValid)
+            if (assessmentNameValid && assessmentTypeValid && assessmentValid)
             {
                 await App.Database.SaveAssessmentAsync(assessment);
                 await Shell.Current.Navigation.PopToRootAsync();
@@ -130,6 +140,11 @@ namespace Term_Planner.Views
             {
                 assessment.NotifEnabled = false;
             }
+        }
+        private void TypePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var assessment = (Assessment)BindingContext;
+            assessment.AssessmentType = (string)TypePicker.SelectedItem;
         }
     }
 }
