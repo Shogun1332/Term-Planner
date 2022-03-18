@@ -94,6 +94,19 @@ namespace Term_Planner.Views
                         assessmentValid = false;
                     }
                 }
+                else if (existingAssessmentCheck > 0)
+                {
+                    assessmentValid = false;
+                    int assessmentValidation = assessmentsOwnedByParent.Where(i => i.AssessmentType == assessment.AssessmentType).Count(i => i.AssessmentID == assessment.AssessmentID);
+                    if (assessmentValidation == 1)
+                    {
+                        assessmentValid = true;
+                    }
+                    if (assessmentValidation > 1)
+                    {
+                        assessmentValid = false;
+                    }
+                }
             }
             if (TypePicker.SelectedItem == null)
             {
